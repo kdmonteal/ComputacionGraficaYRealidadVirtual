@@ -68,7 +68,20 @@ function getProperties() {
     var datos = document.querySelectorAll('input');
     createObjects('Cube', datos);
 }
-
+function transformations(action) {
+    switch (action) {
+        case 'Translate':
+            console.log("translate");
+            myObject.position.set(0,0,0);
+            break;
+        case 'Rotate':
+            console.log("rotate");
+            break;
+        case 'Scale':
+            console.log("scale");
+            break;
+    }
+}
 function createObjects(objectToCreate, datos) {
     material = new THREE.MeshBasicMaterial({ color: datos[3].value, wireframe: false});
     // Cubo, Torus, Cone
@@ -106,6 +119,11 @@ function createObjects(objectToCreate, datos) {
     allMyFigures.push(myObject);
     console.log(allMyFigures);
     scene.add(myObject);
+
+    if(countFigure>0){
+        alert("activar transformaciones");
+        document.getElementById('transform').className = "dropdown-item";
+    }
 }
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;

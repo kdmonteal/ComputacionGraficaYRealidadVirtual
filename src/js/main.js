@@ -102,9 +102,13 @@ function createObjects(objectToCreate, datos) {
     }
     myObject = new THREE.Mesh(geometry, material);
     myObject.name = "Figura"+countFigure;
+    myObject.position.set(getRndInteger(-20, 20),datos[1].value/2,getRndInteger(-20, 20));
     allMyFigures.push(myObject);
     console.log(allMyFigures);
     scene.add(myObject);
+}
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 function calcularVector(pfx, pfy, pfz, pix, piy, piz) {
     const vectorx = pfx - pix;

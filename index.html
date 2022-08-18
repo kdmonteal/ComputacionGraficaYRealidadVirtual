@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First THREE JS</title>
+    <link rel="icon" href="./src/img/icon.png" type="image/png">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="./src/css/myStyle.css">
+    <!-- With this line of code we can have the basic code of THREEJS-->
+    <script src="./src/libs/build/three.min.js"></script>
+    <!-- Controls -->
+    <script src="./src/libs/controls/three.js"></script>
+    <script src="./src/libs/controls/OrbitControls.js"></script>
+    <!-- With this import of js file, We can apply the elements of THREEJS-->
+    <script src="./src/js/main.js"></script>
+</head>
+
+<body onload="start()">
+    <canvas width="800" height="600" class="webgl"></canvas>
+    <nav class="navbar navbar-dark bg-dark fixed-top justify-content-center">
+        <ul class="nav">
+            <li class="nav-item">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Create Objets
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a data-bs-toggle="modal" data-bs-target="#modalCubo" class="dropdown-item">Cube</a></li>
+                                        <li><a class="dropdown-item" onclick="createObjects('Torus')">Torus</a></li>
+                                        <li><a class="dropdown-item" onclick="createObjects('Cone')">Cone</a></li>
+                                        <li><a class="dropdown-item" onclick="createObjects('Vector')">Vector</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </li>
+            <li class="nav-item">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Transformations
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item" href="#">Translate</a></li>
+                                        <li><a class="dropdown-item" href="#">Rotation</a></li>
+                                        <li><a class="dropdown-item" href="#">Scale</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </li>
+        </ul>
+    </nav>
+    <!--Modales-->
+    <div class="modal fade" id="modalCubo" tabindex="-1" aria-labelledby="modalCuboLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalCuboLabel">Crear Cubo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <input class="form-control" type="text" name="anchoCubo" id="anchoCubo" placeholder="x (Ancho)">
+            <br>
+            <input class="form-control" type="text" name="altoCubo" id="altoCubo" placeholder="y (Alto)">
+            <br>
+            <input class="form-control" type="text" name="profCubo" id="profCubo" placeholder="z (Profundidad)">
+            <br>
+            <input class="form-control" type="color" name="colorCub" id="colorCub">
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="getProperties()">Crear</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

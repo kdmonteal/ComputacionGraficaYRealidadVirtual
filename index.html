@@ -57,9 +57,9 @@
                                         Transformations
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a id="transform" class="dropdown-item disabled" onclick="transformations('Translate')">Translate</a></li>
-                                        <li><a id="" class="dropdown-item disabled" href="#">Rotation</a></li>
-                                        <li><a id="" class="dropdown-item disabled" href="#">Scale</a></li>
+                                        <li><a id="transform" class="dropdown-item disabled" data-bs-toggle="modal" data-bs-target="#transformationModal" class="dropdown-item">Translate</a></li>
+                                        <li><a id="rotate" class="dropdown-item disabled" href="#">Rotation</a></li>
+                                        <li><a id="scale" class="dropdown-item disabled" href="#">Scale</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -74,7 +74,7 @@
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modalCuboLabel">Crear Cubo</h5>
+            <h5 class="modal-title" id="modalCuboLabel">Create Object</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -90,6 +90,28 @@
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="getProperties()">Crear</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!--Modal Transformations-->
+    <div class="modal fade" id="transformationModal" tabindex="-1" aria-labelledby="transformationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="transformationModalLabel">Transformation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <input class="form-control" type="text" name="posx" id="posx" placeholder="x">
+            <br>
+            <input class="form-control" type="text" name="posy" id="posy" placeholder="y">
+            <br>
+            <input class="form-control" type="text" name="posz" id="posz" placeholder="z">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
             </div>
         </div>
         </div>

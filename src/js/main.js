@@ -121,8 +121,9 @@ function createObjects(objectToCreate, datos) {
     scene.add(myObject);
 
     if(countFigure>0){
-        alert("activar transformaciones");
         document.getElementById('transform').className = "dropdown-item";
+        document.getElementById('rotate').className = "dropdown-item";
+        document.getElementById('scale').className = "dropdown-item";
     }
 }
 function getRndInteger(min, max) {

@@ -1,6 +1,6 @@
 /* Author(a): Kelly Daniella Marin
    Date of creation: 10 Agosto 2022
-   Last Modification: 11 Agosto 2022 / 13:43 PM
+   Last Modification: 18 Agosto 2022 / 13:54 PM
  */
 
 // var: Pueden declar sin inicializar. 
@@ -14,7 +14,11 @@ var scene = null,
     renderer = null,
     controls = null;
 
-var myCube = null;
+var myObject = null,
+    geometry = null,
+    material = null
+    allMyFigures = new Array(),
+    countFigure = 0;
 
 function start() {
     // Call function to create scene
@@ -58,9 +62,6 @@ function initScene() {
     // Make Adds
     scene.add(camera);
     camera.position.z = 2;
-
-    createObjects();
-
     window.addEventListener('resize', redimensionar);
 }
 function getProperties() {
@@ -69,33 +70,21 @@ function getProperties() {
 }
 
 function createObjects(objectToCreate, datos) {
+    material = new THREE.MeshBasicMaterial({ color: datos[3].value, wireframe: false});
     // Cubo, Torus, Cone
     switch (objectToCreate) {
         case 'Cube':
-            let geometry = new THREE.BoxGeometry(datos[0].value, datos[1].value, datos[2].value);
-            let material = new THREE.MeshBasicMaterial({
-                color: +('0x'+(datos[3].value).slice(1)),
-                wireframe: false
-            });
-            myCube = new THREE.Mesh(geometry, material);
-            scene.add(myCube);
+            geometry = new THREE.BoxGeometry(datos[0].value, datos[1].value, datos[2].value);
+            countFigure++;
             break;
         case 'Torus':
-            const geometry2 = new THREE.TorusGeometry(10, 3, 16, 100);
-            const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-            const torus = new THREE.Mesh(geometry2, material2);
-            scene.add(torus);
+            geometry = new THREE.TorusGeometry(10, 3, 16, 100);
             break;
         case 'Cone':
-            const geometry3 = new THREE.ConeGeometry(5, 20, 32);
-            const material3 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-            const cone = new THREE.Mesh(geometry3, material3);
-            scene.add(cone);
+            geometry = new THREE.ConeGeometry(5, 20, 32);
             break;
         case 'Vector':
-
             const dir = calcularVector(10, 10, 10, 5, 2, 1);
-
             //normalize the direction vector (convert to vector of length 1)
             dir.normalize();
 
@@ -111,6 +100,11 @@ function createObjects(objectToCreate, datos) {
             scene.add(arrowHelper);
             break;
     }
+    myObject = new THREE.Mesh(geometry, material);
+    myObject.name = "Figura"+countFigure;
+    allMyFigures.push(myObject);
+    console.log(allMyFigures);
+    scene.add(myObject);
 }
 function calcularVector(pfx, pfy, pfz, pix, piy, piz) {
     const vectorx = pfx - pix;

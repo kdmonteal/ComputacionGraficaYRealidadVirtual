@@ -17,8 +17,9 @@ var scene = null,
 var myObject = null,
     geometry = null,
     material = null
-allMyFigures = new Array(),
-    countFigure = 0;
+    allMyFigures = new Array(),
+    countFigure = 0,
+    myObjectTransform = null;
 
 function start() {
     // Call function to create scene
@@ -79,12 +80,14 @@ function createOptions() {
 }
 function transformations(action) {
     let valuesTrans = document.querySelectorAll('.transF');
+    var e = document.getElementById("objects");
+    var value = e.value;
 
-    //document.getElementById('objects').appendChild(option);
+    objTransform = allMyFigures[value];
 
     switch (action) {
         case 'Translate':
-            myObject.position.set(valuesTrans[0].value, valuesTrans[1].value, valuesTrans[2].value);
+            objTransform.position.set(valuesTrans[0].value, valuesTrans[1].value, valuesTrans[2].value);
             break;
         case 'Rotate':
             console.log("rotate");
@@ -126,13 +129,14 @@ function createObjects(objectToCreate, datos) {
             break;
     }
     myObject = new THREE.Mesh(geometry, material);
-    myObject.name = objectToCreate + " " + countFigure + " Color: " + datos[3].value;
+    myObject.name = objectToCreate + " " + countFigure + " / " + datos[3].value;
     myObject.position.set(getRndInteger(-20, 20), datos[1].value / 2, getRndInteger(-20, 20));
     allMyFigures.push(myObject);
     console.log(allMyFigures);
     scene.add(myObject);
 
     if (countFigure > 0) {
+        createOptions();
         document.getElementById('transform').className = "dropdown-item";
         document.getElementById('rotate').className = "dropdown-item";
         document.getElementById('scale').className = "dropdown-item";
@@ -155,6 +159,3 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
 }
-
-
-

@@ -35,7 +35,8 @@
                                         Create Objets
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a data-bs-toggle="modal" data-bs-target="#modalCubo" class="dropdown-item">Cube</a></li>
+                                        <li><a data-bs-toggle="modal" data-bs-target="#modalCubo"
+                                                class="dropdown-item">Cube</a></li>
                                         <li><a class="dropdown-item" onclick="createObjects('Torus')">Torus</a></li>
                                         <li><a class="dropdown-item" onclick="createObjects('Cone')">Cone</a></li>
                                         <li><a class="dropdown-item" onclick="createObjects('Vector')">Vector</a></li>
@@ -57,7 +58,9 @@
                                         Transformations
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a id="transform" class="dropdown-item disabled" data-bs-toggle="modal" data-bs-target="#transformationModal" class="dropdown-item">Translate</a></li>
+                                        <li><a id="transform" class="dropdown-item disabled" data-bs-toggle="modal"
+                                                data-bs-target="#transformationModal"
+                                                class="dropdown-item" onclick="createOptions()">Translate</a></li>
                                         <li><a id="rotate" class="dropdown-item disabled" href="#">Rotation</a></li>
                                         <li><a id="scale" class="dropdown-item disabled" href="#">Scale</a></li>
                                     </ul>
@@ -72,48 +75,68 @@
     <!--Modales-->
     <div class="modal fade" id="modalCubo" tabindex="-1" aria-labelledby="modalCuboLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="modalCuboLabel">Create Object</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <input class="form-control" type="text" name="anchoCubo" id="anchoCubo" placeholder="x (Ancho)">
-            <br>
-            <input class="form-control" type="text" name="altoCubo" id="altoCubo" placeholder="y (Alto)">
-            <br>
-            <input class="form-control" type="text" name="profCubo" id="profCubo" placeholder="z (Profundidad)">
-            <br>
-            <input class="form-control" type="color" name="colorCub" id="colorCub">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCuboLabel">Create Object</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" name="anchoCubo" id="anchoCubo" placeholder="x (Ancho)">
+                    <br>
+                    <input class="form-control" type="text" name="altoCubo" id="altoCubo" placeholder="y (Alto)">
+                    <br>
+                    <input class="form-control" type="text" name="profCubo" id="profCubo" placeholder="z (Profundidad)">
+                    <br>
+                    <input class="form-control" type="color" name="colorCub" id="colorCub">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="getProperties()">Crear</button>
+                </div>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="getProperties()">Crear</button>
-            </div>
-        </div>
         </div>
     </div>
     <!--Modal Transformations-->
-    <div class="modal fade" id="transformationModal" tabindex="-1" aria-labelledby="transformationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="transformationModal" tabindex="-1" aria-labelledby="transformationModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="transformationModalLabel">Transformation</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="transformationModalLabel">Transformation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container text-center">
+                        <div class="row">
+                            <label class="form-label">Select Object</label>
+                            <div class="col">
+                                <select name="objects" id="objects">
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label class="form-label">Translate</label>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="posx" id="posx" placeholder="x">
+                            </div>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="posy" id="posy" placeholder="y">
+                            </div>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="posz" id="posz" placeholder="z">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="transformations('Translate')">Transformar</button>
+                </div>
             </div>
-            <div class="modal-body">
-            <input class="form-control" type="text" name="posx" id="posx" placeholder="x">
-            <br>
-            <input class="form-control" type="text" name="posy" id="posy" placeholder="y">
-            <br>
-            <input class="form-control" type="text" name="posz" id="posz" placeholder="z">
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
-            </div>
-        </div>
         </div>
     </div>
     <!-- JavaScript Bundle with Popper -->

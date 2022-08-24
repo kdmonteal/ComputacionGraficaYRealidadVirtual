@@ -17,7 +17,7 @@ var scene = null,
 var myObject = null,
     geometry = null,
     material = null
-    allMyFigures = new Array(),
+allMyFigures = new Array(),
     countFigure = 0;
 
 function start() {
@@ -68,11 +68,23 @@ function getProperties() {
     var datos = document.querySelectorAll('input');
     createObjects('Cube', datos);
 }
+function createOptions() {
+    let mySelect = document.getElementById("objects");
+    for (let i = 0; i < allMyFigures.length; i++) {
+        var option = document.createElement('option');
+        option.setAttribute("value", i);
+        option.innerHTML = allMyFigures[i].name;
+    }
+    mySelect.appendChild(option);
+}
 function transformations(action) {
+    let valuesTrans = document.querySelectorAll('.transF');
+
+    //document.getElementById('objects').appendChild(option);
+
     switch (action) {
         case 'Translate':
-            console.log("translate");
-            myObject.position.set(0,0,0);
+            myObject.position.set(valuesTrans[0].value, valuesTrans[1].value, valuesTrans[2].value);
             break;
         case 'Rotate':
             console.log("rotate");
@@ -83,7 +95,7 @@ function transformations(action) {
     }
 }
 function createObjects(objectToCreate, datos) {
-    material = new THREE.MeshBasicMaterial({ color: datos[3].value, wireframe: false});
+    material = new THREE.MeshBasicMaterial({ color: datos[3].value, wireframe: false });
     // Cubo, Torus, Cone
     switch (objectToCreate) {
         case 'Cube':
@@ -114,13 +126,13 @@ function createObjects(objectToCreate, datos) {
             break;
     }
     myObject = new THREE.Mesh(geometry, material);
-    myObject.name = "Figura"+countFigure;
-    myObject.position.set(getRndInteger(-20, 20),datos[1].value/2,getRndInteger(-20, 20));
+    myObject.name = objectToCreate + " " + countFigure + " Color: " + datos[3].value;
+    myObject.position.set(getRndInteger(-20, 20), datos[1].value / 2, getRndInteger(-20, 20));
     allMyFigures.push(myObject);
     console.log(allMyFigures);
     scene.add(myObject);
 
-    if(countFigure>0){
+    if (countFigure > 0) {
         document.getElementById('transform').className = "dropdown-item";
         document.getElementById('rotate').className = "dropdown-item";
         document.getElementById('scale').className = "dropdown-item";

@@ -81,14 +81,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input class="form-control" type="text" name="anchoCubo" id="anchoCubo" placeholder="x (Ancho)">
-                    <br>
-                    <input class="form-control" type="text" name="altoCubo" id="altoCubo" placeholder="y (Alto)">
-                    <br>
-                    <input class="form-control" type="text" name="profCubo" id="profCubo" placeholder="z (Profundidad)">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" type="text" name="anchoCubo" id="anchoCubo" placeholder="x (Ancho)">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="altoCubo" id="altoCubo" placeholder="y (Alto)">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="profCubo" id="profCubo" placeholder="z (Profundidad)">
+                        </div>
+                    </div>
                     <br>
                     <input class="form-control" type="color" name="colorCub" id="colorCub">
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -112,7 +117,7 @@
                         <div class="row">
                             <label class="form-label">Select Object</label>
                             <div class="col">
-                                <select name="objects" id="objects">
+                                <select name="objects" id="objects"> <!--Creacion de manera dinamica de los option-->
                                 </select>
                             </div>
                         </div>
@@ -127,6 +132,32 @@
                             </div>
                             <div class="col">
                                 <input class="form-control transF" type="text" name="posz" id="posz" placeholder="z">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label class="form-label">Rotate</label>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="anguPosx" id="anguPosx" placeholder="x">
+                            </div>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="anguPosy" id="anguPosy" placeholder="y">
+                            </div>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="anguPosz" id="anguPosz" placeholder="z">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label class="form-label">Scale</label>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="scalex" id="scalex" placeholder="x">
+                            </div>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="scaley" id="scaley" placeholder="y">
+                            </div>
+                            <div class="col">
+                                <input class="form-control transF" type="text" name="scalez" id="scalez" placeholder="z">
                             </div>
                         </div>
                     </div>

@@ -17,9 +17,13 @@ var scene = null,
 var myObject = null,
     geometry = null,
     material = null
-    allMyFigures = new Array(),
+allMyFigures = new Array(),
     countFigure = 0,
     myObjectTransform = null;
+
+var cube = null,
+    cube2 = null,
+    cube3 = null;
 
 function start() {
     // Call function to create scene
@@ -37,15 +41,18 @@ function initScene() {
     // Scene, Camera, Renderer
     // Create Scene
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000);
+    scene.background = new THREE.Color(0xFEEAE5);
     // Create Camera (3D)
     camera = new THREE.PerspectiveCamera(75, // Fov (campo de vision)
         window.innerWidth / window.innerHeight, // aspect (tamano pantalla)
         0.1, // near (Cercano)
         1000); // far (Lejano)
+    const helper = new THREE.CameraHelper( camera );
+        scene.add( helper );
+
     // To renderer
     const canvas = document.querySelector('.webgl');
-    renderer = new THREE.WebGLRenderer({ canvas: canvas });
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     // To Make Controls
@@ -66,24 +73,17 @@ function initScene() {
     window.addEventListener('resize', redimensionar);
 
     // Create Object with images texture
-    const light = new THREE.AmbientLight( 0xfff,1); // soft white light
+    const light = new THREE.AmbientLight(); // soft white light
     scene.add( light );
 
-    const pointLight = new THREE.PointLight( 0xff0000, 1, 100 );
-    pointLight.position.set( 0, 1.5, 2 );
-    scene.add( pointLight );
+    const pointLight = new THREE.PointLight(0xfff, 3, 100);
+    pointLight.position.set(0, 1.5, 2);
+    scene.add(pointLight);
 
     const sphereSize = 1;
-    const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
-    scene.add( pointLightHelper );
+    const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
+    scene.add(pointLightHelper);
 
-    const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    // -- Basic --
-    /*const material = new THREE.MeshBasicMaterial( {color: 0xff0000,
-                                                    wireframe: false,
-                                                    transparent: true,
-                                                    opacity:1
-                                                    } );*/
     // -- Normales --
     /*const material = new THREE.MeshNormalMaterial({color: 0xff0000,
                                                     wireframe: false,
@@ -99,17 +99,62 @@ function initScene() {
                                                     emissive: 0xff00ff,
                                                     emissiveIntensity:0.3,
                                                     map: new THREE.TextureLoader().load('./src/img/face3.jpg')});*/
-    const material = new THREE.MeshStandardMaterial({color: 0xff00ff,
+    /*const material = new THREE.MeshStandardMaterial({color: 0xff00ff,
                                                     roughness:0.4,
                                                     metalness:0.2,
                                                     map: new THREE.TextureLoader().load('./src/img/face3.jpg')
+                                            });*/
+    const phongMaterial = new THREE.MeshNormalMaterial();
 
-                                            });
-    
-    const cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    // -- Basic --
+    const material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./src/img/uv_test_bw_1024.png') });
+    const material2 = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('./src/img/face2.png'),
+        side: THREE.DoubleSide
+    });
 
+    var materialCube = [new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./src/img/face1.jpg') }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./src/img/face2.png') }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./src/img/face3.jpg') }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./src/img/face4.jpg') }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./src/img/face5.png') }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./src/img/face6.png') }),
+    ];
+
+    const material3 = new THREE.MeshFaceMaterial(materialCube);
+
+    cube = new THREE.Mesh(geometry, material);
+    cube2 = new THREE.Mesh(geometry, phongMaterial);
+    cube3 = new THREE.Mesh(geometry, material3);
+
+    cube.position.set(-0.5, 0, 0);
+    cube2.position.set(-4, 0, 0);
+    cube3.position.set(2, 0, 0);
+
+    const geometryPlane = new THREE.PlaneGeometry( 10, 10 );
+    const materialPlane = new THREE.MeshBasicMaterial( {side: THREE.DoubleSide,
+                                                        map: new THREE.TextureLoader().load('./src/img/water.png'),
+                                                        blending: THREE.CustomBlending} );
+    const plane = new THREE.Mesh( geometryPlane, materialPlane );
+
+    scene.add(cube, cube2, cube3);
+    plane.position.z=1;
+
+ 
+
+    // 
+    const myGeometry = new THREE.BoxGeometry(7, 7, 7);
+    const materialGeometry = new THREE.MeshStandardMaterial({roughness:1,
+                                                              metalness:0.7,
+                                                              map: new THREE.TextureLoader().load('./src/img/crate0/crate0_diffuse.png'),
+                                                              bumpMap: new THREE.TextureLoader().load('./src/img/crate0/crate0_bump.png'),
+                                                              normalMap: new THREE.TextureLoader().load('./src/img/crate0/crate0_normal.png')
+                                                            });
     
+    
+    const cube5 = new THREE.Mesh(myGeometry, materialGeometry);
+    scene.add(cube5);
     // ******************************
 }
 function getProperties() {
@@ -200,8 +245,15 @@ function calcularVector(pfx, pfy, pfz, pix, piy, piz) {
 }
 function animate() {
     requestAnimationFrame(animate);
-    //myCube.rotation.x += 0.01;
-    //myCube.rotation.y += 0.01;
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    cube2.rotation.x += 0.01;
+    cube2.rotation.y += 0.01;
+
+    cube3.rotation.x += 0.01;
+    cube3.rotation.y += 0.01;
+
     // required if controls.enableDamping or controls.autoRotate are set to true
     controls.update();
     renderer.render(scene, camera);

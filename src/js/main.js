@@ -37,7 +37,7 @@ function initScene() {
     // Scene, Camera, Renderer
     // Create Scene
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x28DEFF);
+    scene.background = new THREE.Color(0x000);
     // Create Camera (3D)
     camera = new THREE.PerspectiveCamera(75, // Fov (campo de vision)
         window.innerWidth / window.innerHeight, // aspect (tamano pantalla)
@@ -64,6 +64,53 @@ function initScene() {
     scene.add(camera);
     camera.position.z = 2;
     window.addEventListener('resize', redimensionar);
+
+    // Create Object with images texture
+    const light = new THREE.AmbientLight( 0xfff,1); // soft white light
+    scene.add( light );
+
+    const pointLight = new THREE.PointLight( 0xff0000, 1, 100 );
+    pointLight.position.set( 0, 1.5, 2 );
+    scene.add( pointLight );
+
+    const sphereSize = 1;
+    const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+    scene.add( pointLightHelper );
+
+    const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    // -- Basic --
+    /*const material = new THREE.MeshBasicMaterial( {color: 0xff0000,
+                                                    wireframe: false,
+                                                    transparent: true,
+                                                    opacity:1
+                                                    } );*/
+    // -- Normales --
+    /*const material = new THREE.MeshNormalMaterial({color: 0xff0000,
+                                                    wireframe: false,
+                                                    transparent: true,
+                                                    opacity:1
+                                                });*/
+    // -- Phong Material --
+    /*const material = new THREE.MeshPhongMaterial({color: 0xff00ff,
+                                                 specular: 0xff0000,
+                                                 map: new THREE.TextureLoader().load('./src/img/face3.jpg')}); */
+    // -- MeshLambertMaterial --  
+    /*const material = new THREE.MeshLambertMaterial({color: 0xff00ff,
+                                                    emissive: 0xff00ff,
+                                                    emissiveIntensity:0.3,
+                                                    map: new THREE.TextureLoader().load('./src/img/face3.jpg')});*/
+    const material = new THREE.MeshStandardMaterial({color: 0xff00ff,
+                                                    roughness:0.4,
+                                                    metalness:0.2,
+                                                    map: new THREE.TextureLoader().load('./src/img/face3.jpg')
+
+                                            });
+    
+    const cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    
+    // ******************************
 }
 function getProperties() {
     var datos = document.querySelectorAll('input');

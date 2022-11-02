@@ -52,7 +52,8 @@ function initScene() {
   initWorld();
   createPlayerMove();
   createFrontera();
-  generateUI();
+  go2Play();
+  createPickups();
 }
 
 function animate() {
@@ -254,7 +255,6 @@ window.addEventListener('keyup', function (e) {
 // Funciones llamadas desde el index:
 // ----------------------------------
 function go2Play() {
-  document.getElementById('blocker').style.display = 'none';
   document.getElementById('cointainerOthers').style.display = 'block';
   playAudio(x);
   initialiseTimer();
@@ -268,14 +268,6 @@ function initialiseTimer() {
     document.getElementById("seconds").innerHTML = String(pad(++sec % 60));
     document.getElementById("minutes").innerHTML = String(pad(parseInt(sec / 60, 10)));
   }, 1000);
-}
-
-function showInfoCreator() {
-  if (document.getElementById("myNameInfo").style.display == "none")
-    document.getElementById("myNameInfo").style.display = "block";
-  else
-    document.getElementById("myNameInfo").style.display = "none";
-
 }
 // ----------------------------------
 // Funciones llamadas desde el index:
@@ -295,31 +287,6 @@ function createFrontera() {
   worldWalls.position.set(5, 0, 0);
   scene.add(worldWalls);
   collidableMeshList.push(worldWalls);
-}
-
-function generateUI() {
-  var gui = new dat.GUI({ width: 320 });
-  var param = {
-    numPatos: 0,
-    atacar: false
-  };
-
-
-  var numPatos = gui.add(param, 'numPatos').min(0).max(10).step(1).name("Numero de patos");
-  var atacar = gui.add(param, 'atacar');
-
-  numPatos.onChange(function (num) {
-    // Creation Ducks
-      createDucks("./modelos/other/","./modelos/other/Duck.gltf");
-  });
-
-  atacar.onChange(function (condition) {
-    if (condition==true) {
-      myDuck.scale.set(0.9,0.9,0.9);
-    }
-  });
-
-
 }
 
 function collisionAnimate() {
@@ -348,4 +315,13 @@ function collisionAnimate() {
       document.getElementById("lives").innerHTML = lives; // 'no toco';  
     }
   }
+}
+
+function createPickups() {
+  const geometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
+  const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+  const cube = new THREE.Mesh( geometry, material );
+
+  cube.position.y = 0.5;
+  scene.add( cube );
 }

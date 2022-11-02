@@ -10,7 +10,7 @@ function mySelecyPlayer() {
 }
 function initScene() {
     initBasicElements(); // Scene, Camera and Render
-    createFistModel("./modelos/island/","littleisle.mtl","littleisle.obj");
+    createFistModel("./modelos/soldier/","soldado.mtl","soldado.obj");
 }
 function initBasicElements() {
     scene = new THREE.Scene();
@@ -19,7 +19,8 @@ function initBasicElements() {
     clock = new THREE.Clock();
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(0, 10, 10);
+    camera.position.set(6.12, 4.72, 6.78);
+
     controls.update();
 
     scene.background = new THREE.Color(0xffffff);
@@ -32,7 +33,7 @@ function initBasicElements() {
     light.position.set(0.5, 1, 0.75);
     scene.add(light);
 
-    renderer.setSize(500, 500);
+    renderer.setSize(300, 300);
     // document.body.appendChild(renderer.domElement);
 }
 function createFistModel(generalPath, pathMtl, pathObj) {
@@ -49,10 +50,10 @@ function createFistModel(generalPath, pathMtl, pathObj) {
         objLoader.load(pathObj, function (object) {
 
             scene.add(object);
-            object.scale.set(0.1, 0.1, 0.1);
+            // object.scale.set(0.1, 0.1, 0.1);
 
-            object.position.y = 0;
-            object.position.x = 5;
+            // object.position.y = 0;
+            // object.position.x = 5;
 
         });
 
